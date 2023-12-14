@@ -3,6 +3,10 @@
 #include <string.h>
 
 
+#define ERROR_FECHA_INVALIDA 1
+#define ERROR_MATERIA_NO_REGISTRADA 2
+
+
 struct Asistencia {
     char fecha[20];
     char materia[50];
@@ -57,18 +61,39 @@ void agregarMateria(struct Estudiante* estudiante, const char* nombre, float cal
 }
 
 
-void registrarAsistencia(struct Estudiante* estudiante, const char* fecha, const char* materia, const char* estado) {
+int registrarAsistencia(struct Estudiante* estudiante, const char* fecha, const char* materia, const char* estado) {
+    // Verificar formato de fecha
+    if (strlen(fecha) != 10 || fecha[4] != '-' || fecha[7] != '-') {
+        return ERROR_FECHA_INVALIDA;
+    }
+
+
+    int materiaRegistrada = 0;
+    for (int i = 0; i < estudiante->numMaterias; i++) {
+        if (strcmp(estudiante->materias[i].nombre, materia) == 0) {
+            materiaRegistrada = 1;
+            break;
+        }
+    }
+
+    if (!materiaRegistrada) {
+        return ERROR_MATERIA_NO_REGISTRADA;
+    }
+
+
     if (estudiante->numAsistencias < estudiante->capacidadAsistencias) {
         snprintf(estudiante->asistencias[estudiante->numAsistencias].fecha, sizeof(estudiante->asistencias[0].fecha), "%s", fecha);
         snprintf(estudiante->asistencias[estudiante->numAsistencias].materia, sizeof(estudiante->asistencias[0].materia), "%s", materia);
         snprintf(estudiante->asistencias[estudiante->numAsistencias].estado, sizeof(estudiante->asistencias[0].estado), "%s", estado);
         estudiante->numAsistencias++;
     }
+
+    return 0;
 }
 
 
 void mostrarInformacion(const struct Estudiante* estudiante) {
-    printf("Información del Estudiante:\n");
+    printf("Informacion del Estudiante:\n");
     printf("Nombre: %s\n", estudiante->nombre);
     printf("Edad: %d\n", estudiante->edad);
     printf("Promedio: %.2f\n", estudiante->promedio);
@@ -86,15 +111,23 @@ void mostrarInformacion(const struct Estudiante* estudiante) {
 
 int main() {
     struct Estudiante estudiante1;
-    inicializarEstudiante(&estudiante1, "Javier", 18, 8.5, 10, 10);
+    inicializarEstudiante(&estudiante1, "Javier", 18, 9.1, 10, 10);
 
-
+    // Agregar materias
     agregarMateria(&estudiante1, "Matematicas", 9.0);
     agregarMateria(&estudiante1, "Historia", 8.0);
 
 
-    registrarAsistencia(&estudiante1, "2023-01-01", "Matematicas", "asistio");
-    registrarAsistencia(&estudiante1, "2023-01-02", "Historia", "falta");
+    int errorFecha = registrarAsistencia(&estudiante1, "2023-01-01", "Matematicas", "asistio");
+    if (errorFecha == ERROR_FECHA_INVALIDA) {
+        printf("Error: Formato de fecha incorrecto.\n");
+    }
+
+
+    int errorMateria = registrarAsistencia(&estudiante1, "2023-01-02", "Geografia", "asistio");
+    if (errorMateria == ERROR_MATERIA_NO_REGISTRADA) {
+        printf("Error: Materia no registrada.\n");
+    }
 
 
     mostrarInformacion(&estudiante1);
