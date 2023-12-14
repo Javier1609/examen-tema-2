@@ -3,7 +3,7 @@
 using namespace std;
 
 struct Materia {
-    std::string nombre;
+    string nombre;
     float calificacion;
 };
 
