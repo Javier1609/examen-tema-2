@@ -9,3 +9,5 @@ struct Estudiante {
     int edad;
     float promedio;
 };
+
+void mostrarEstudiante(const Estudiante& estudiante)
