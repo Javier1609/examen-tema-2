@@ -12,6 +12,7 @@ struct Estudiante {
 
 void mostrarEstudiante(const Estudiante& estudiante) {
     cout << "Nombre: " << estudiante.nombre << endl;
-       cout << "Edad: " << estudiante.edad << endl;
+    cout << "Edad: " << estudiante.edad << endl;
+    cout << "Promedio: " << estudiante.promedio << endl;
 
 }
