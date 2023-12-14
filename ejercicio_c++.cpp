@@ -1,8 +1,13 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <algorithm>
-using namespace std;
+
+
+struct Asistencia {
+    std::string fecha;
+    std::string materia;
+    std::string estado; // "asistió", "falta", "tardanza"
+};
 
 
 struct Materia {
@@ -16,44 +21,45 @@ struct Estudiante {
     int edad;
     float promedio;
     std::vector<Materia> materias;
-};
+    std::vector<Asistencia> asistencias;
 
 
-void agregarMateria(Estudiante& estudiante, const std::string& nombre, float calificacion) {
-    estudiante.materias.push_back({nombre, calificacion});
-}
-
-
-void eliminarMateria(Estudiante& estudiante, const string& nombre) {
-    estudiante.materias.erase(
-            std::remove_if(estudiante.materias.begin(), estudiante.materias.end(),
-                           [nombre](const Materia& materia) { return materia.nombre == nombre; }),
-            estudiante.materias.end());
-}
-
-
-void mostrarMaterias(const Estudiante& estudiante) {
-    cout << "Materias Inscritas:" << std::endl;
-    for (const auto& materia : estudiante.materias) {
-        std::cout << "- " << materia.nombre << " (Calificacion: " << materia.calificacion << ")" << std::endl;
+    void registrarAsistencia(const std::string& fecha, const std::string& materia, const std::string& estado) {
+        asistencias.push_back({fecha, materia, estado});
     }
-}
+
+
+    void mostrarInformacion() const {
+        std::cout << "Informacion del Estudiante:" << std::endl;
+        std::cout << "Nombre: " << nombre << std::endl;
+        std::cout << "Edad: " << edad << std::endl;
+        std::cout << "Promedio: " << promedio << std::endl;
+
+        std::cout << "\nMaterias Inscritas:" << std::endl;
+        for (const auto& materia : materias) {
+            std::cout << "- " << materia.nombre << " (Calificacion: " << materia.calificacion << ")" << std::endl;
+        }
+
+        std::cout << "\nAsistencias Registradas:" << std::endl;
+        for (const auto& asistencia : asistencias) {
+            std::cout << "- Fecha: " << asistencia.fecha << ", Materia: " << asistencia.materia << ", Estado: " << asistencia.estado << std::endl;
+        }
+    }
+};
 
 int main() {
     Estudiante estudiante1 = {"Juan", 20, 8.5};
 
 
-    agregarMateria(estudiante1, "Matematicas", 9.0);
-    agregarMateria(estudiante1, "Historia", 8.0);
+    estudiante1.materias.push_back({"Matematicas", 9.0});
+    estudiante1.materias.push_back({"Historia", 8.0});
 
 
-    mostrarMaterias(estudiante1);
+    estudiante1.registrarAsistencia("2023-01-01", "Matematicas", "asistio");
+    estudiante1.registrarAsistencia("2023-01-02", "Historia", "falta");
 
 
-    eliminarMateria(estudiante1, "Historia");
-
-
-    mostrarMaterias(estudiante1);
+    estudiante1.mostrarInformacion();
 
     return 0;
 }
