@@ -23,4 +23,6 @@ int main () {
     estudiante1.nombre = "Javier";
     estudiante1.edad = 18;
     estudiante1.promedio = 9.34;
+
+    mostrarEstudiante(estudiante1);
     }
