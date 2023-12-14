@@ -20,11 +20,9 @@ d) Una plantilla para crear objetos, proporciona una definición inicial para el
 
 b) Permiten la creación de funciones y clases genéricas, es decir, que pueden trabajar con cualquier tipo de datos.
 
+
 COMPARACIONES ENTRE C Y C++
 
-ESTRUCTURA ESTUDIANTE
-
-Cadenas de Caracteres:
 
 1.En C++, se utiliza std::string para representar cadenas de caracteres dinámicas.
 En C, se utiliza un array de caracteres (char nombre[50]) para representar cadenas de caracteres.
@@ -44,6 +42,9 @@ En C, se utiliza printf con formatos especiales para imprimir y \n para un salto
 6.En C++, se llama a la función mostrarEstudiante directamente con el objeto estudiante1.
 En C, se llama a la función mostrarEstudiante pasando la dirección del objeto estudiante1 con &estudiante1.
 
-MENEJO DE EXCEPCIONES
+7.En C++, las cadenas de caracteres se manejan de manera más flexible con std::string.
+ En C, es necesario gestionar cuidadosamente el tamaño de los arrays de caracteres para evitar desbordamientos de búfer.
+
+
 
 
