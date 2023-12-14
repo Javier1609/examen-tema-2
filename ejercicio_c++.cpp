@@ -85,7 +85,7 @@ int main() {
         estudiante1.materias.push_back({"Historia", 8.0});
 
 
-        estudiante1.registrarAsistencia("2023/01/01", "Matematicas", "asistio");
+        estudiante1.registrarAsistencia("2023-01-01", "Matematicas", "asistio");
 
 
         estudiante1.registrarAsistencia("2023-01-02", "Geografia", "asistio");
