@@ -1,52 +1,59 @@
 #include <iostream>
 #include <string>
+#include <vector>
+#include <algorithm>
 using namespace std;
 
+
 struct Materia {
-    string nombre;
+    std::string nombre;
     float calificacion;
 };
 
 
 struct Estudiante {
-    string nombre;
+    std::string nombre;
     int edad;
     float promedio;
-    vector<Materia> materias;
-}
+    std::vector<Materia> materias;
+};
+
 
 void agregarMateria(Estudiante& estudiante, const std::string& nombre, float calificacion) {
     estudiante.materias.push_back({nombre, calificacion});
 }
 
-void eliminarMateria(Estudiante& estudiante, const std::string& nombre) {
+
+void eliminarMateria(Estudiante& estudiante, const string& nombre) {
     estudiante.materias.erase(
             std::remove_if(estudiante.materias.begin(), estudiante.materias.end(),
                            [nombre](const Materia& materia) { return materia.nombre == nombre; }),
             estudiante.materias.end());
 }
 
+
 void mostrarMaterias(const Estudiante& estudiante) {
-    std::cout << "Materias Inscritas:" << std::endl;
+    cout << "Materias Inscritas:" << std::endl;
     for (const auto& materia : estudiante.materias) {
-        std::cout << "- " << materia.nombre << " (Calificación: " << materia.calificacion << ")" << std::endl;
+        std::cout << "- " << materia.nombre << " (Calificacion: " << materia.calificacion << ")" << std::endl;
     }
 }
 
+int main() {
+    Estudiante estudiante1 = {"Juan", 20, 8.5};
 
-void mostrarEstudiante(const Estudiante& estudiante) {
-    cout << "Nombre: " << estudiante.nombre << endl;
-    cout << "Edad: " << estudiante.edad << endl;
-    cout << "Promedio: " << estudiante.promedio << endl;
+
+    agregarMateria(estudiante1, "Matematicas", 9.0);
+    agregarMateria(estudiante1, "Historia", 8.0);
+
+
+    mostrarMaterias(estudiante1);
+
+
+    eliminarMateria(estudiante1, "Historia");
+
+
+    mostrarMaterias(estudiante1);
+
+    return 0;
 }
-
-int main () {
-    Estudiante estudiante1;
-
-
-    estudiante1.nombre = "Javier";
-    estudiante1.edad = 18;
-    estudiante1.promedio = 9.34;
-
-    mostrarEstudiante(estudiante1);
-    }
