@@ -2,6 +2,10 @@
 #include <string>
 using namespace std;
 
+struct Materia {
+    std::string nombre;
+    float calificacion;
+};
 
 
 struct Estudiante {
