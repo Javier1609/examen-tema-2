@@ -19,4 +19,8 @@ void mostrarEstudiante(const Estudiante& estudiante) {
 int main () {
     Estudiante estudiante1;
 
+
+    estudiante1.nombre = "Javier";
+    estudiante1.edad = 18;
+    estudiante1.promedio = 9.34;
     }
